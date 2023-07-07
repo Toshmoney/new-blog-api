@@ -54,9 +54,11 @@ const getSinglePost = async(req, res)=>{
     const foundPost = await Posts.findOne({title: title})
     .populate("author", ["username"])
 
-    res.status(200).json(foundPost)
-    foundPost.views++;
-    foundPost.save()
+    if(foundPost){
+        res.status(200).json(foundPost)
+        foundPost.views++;
+        foundPost.save()
+    }
     } catch (error) {
         console.log(error);
     }
